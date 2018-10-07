@@ -5,6 +5,7 @@ const insectColors = {
   queen: 'yellow',
   spider: 'brown',
   grasshopper: '#7cfc00',
+  ladybug: 'red'
 }
 
 export class Insect extends React.Component {

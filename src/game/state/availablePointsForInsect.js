@@ -1,5 +1,6 @@
 import { getNeighbors, isSame, isNotSame, getPointByVector, createPoint } from '../utils';
 import { setUtilsFactory } from '../setUtils';
+import ladybug from './ladybug'
 
 const { unique, subtract } = setUtilsFactory(isSame);
 
@@ -82,7 +83,8 @@ export const availablePointsForInsect = {
         return jumpTarget;
       })
       .map(log('result'));
-  }
+  },
+  ladybug
 };
 
 
