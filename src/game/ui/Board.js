@@ -54,7 +54,7 @@ export class Board extends React.Component {
         this.props.moves.selectOld(found);
       }
     } else if (phase === 'moveInsect') {
-      const found = this.props.G.availablePoints.find(isSame(point));
+      const found = this.props.G.availableMoves.map(m => m.slice(-1)[0]).find(isSame(point));
       if (found !== undefined) {
         this.props.moves.moveInsect(found);
       }

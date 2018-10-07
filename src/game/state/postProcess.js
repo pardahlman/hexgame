@@ -6,7 +6,12 @@ const { subtract } = setUtilsFactory(isSame);
 
 const setColorMap = G => {
   const colorMap = [
-    ...G.availablePoints.map(({ coord }) => ({ coord, color: '#dd666f' })),
+    ...G.availableMoves.reduce((moveColorMap, currentMove) => {
+      const pathToTarget = currentMove.slice(0, currentMove.length-1).map(({coord}) => ({coord, color: '#ddd4a7'}));
+      const moveTarget = currentMove[currentMove.length-1];
+      moveColorMap.push({coord: moveTarget.coord, color: '#dd666f'});
+      return moveColorMap.concat(pathToTarget);
+    }, []),
     ...G.insects.map(({ player, point: { coord } }) => ({ coord, color: playerColors[player] })),
     ...(G.currentInsect && G.currentInsect.point ? [{ coord: G.currentInsect.point.coord, color: '#8d767f' }] : []),
   ]

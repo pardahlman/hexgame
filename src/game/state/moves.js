@@ -1,5 +1,6 @@
 import { createPoint, getNeighbors } from '../utils';
 import { availablePointsForInsect } from './availablePointsForInsect';
+import { movesForInsects } from './availableMoves';
 
 const flat = array => array.reduce((prev, curr) => prev.concat(curr), []);
 
@@ -16,21 +17,22 @@ export const moves = {
       const excludedPoints = [
         ...flat(G.insects.filter(({ player }) => player !== ctx.currentPlayer).map(({ point }) => getNeighbors(point))),
         ...G.insects.map(i => i.point),
-      ]
+      ];
       availablePoints = possiblePoints.filter(possible => excludedPoints.every(excluded => excluded.coord !== possible.coord));
     }
     return {
       ...G,
       currentInsect,
-      availablePoints,
+      availableMoves: availablePoints.map(p => [p])
     };
   },
   selectOld: (G, ctx, currentInsect) => {
-    const availablePoints = availablePointsForInsect[currentInsect.type]({ G, currentInsect });
+    const availableMoves = movesForInsects[currentInsect.type]({ G, currentInsect });
+
     return {
       ...G,
       currentInsect,
-      availablePoints,
+      availableMoves
     };
   },
   moveInsect: (G, ctx, point) => {
@@ -52,7 +54,7 @@ export const moves = {
       ...G,
       currentInsect: null,
       players,
-      availablePoints: [],
+      availableMoves: [],
       insects,
       moveCount: G.moveCount + 1,
     };
@@ -61,7 +63,7 @@ export const moves = {
     return {
       ...G,
       currentInsect: null,
-      availablePoints: [],
+      availableMoves: [],
     };
   },
 };

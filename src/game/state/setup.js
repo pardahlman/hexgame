@@ -33,7 +33,7 @@ export const setup = () => ({
     levels: 2,
     colorMap: {},
   },
-  availablePoints: [],
+  availableMoves: [],
   insects: [],
   moveCount: 0,
   gameover: null,
